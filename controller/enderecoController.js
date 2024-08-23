@@ -89,3 +89,43 @@ exports.deleteEndereco = async (req, res) => {
         res.status(500).send({ error: 'Erro ao deletar endereço', details: error.message });
     }
 };
+
+
+class EnderecoController {
+    static async buscarECriarEndereco(req, res) {
+        try {
+            const { cep } = req.params;
+            const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+
+            if (response.data.erro) {
+                return res.status(404).json({ error: 'CEP não encontrado' });
+            }
+
+            const {
+                logradouro,
+                complemento,
+                bairro,
+                localidade: cidade,
+                uf: estado,
+                ibge: municipioIBGE,
+            } = response.data;
+
+            const novoEndereco = await Endereco.create({
+                Cep: cep,
+                Logradouro: logradouro,
+                Numero: null,
+                Complemento: complemento || '',
+                Bairro: bairro,
+                Cidade: cidade,
+                Estado: estado,
+                MunicipioIBGE: municipioIBGE,
+            });
+
+            return res.status(201).json(novoEndereco);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ error: 'Erro ao buscar e salvar o endereço' });
+        }
+    }
+}
+module.exports = EnderecoController;

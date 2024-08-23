@@ -1,0 +1,24 @@
+{
+    "development": {
+      "username": "postgres",
+      "password": "@Danilo09",
+      "database": "api-node",
+      "host": "127.0.0.1",
+      "dialect": "postgres"
+    },
+    "test": {
+      "username": "postgres",
+      "password": "@Danilo09",
+      "database": "api-node-test",
+      "host": "127.0.0.1",
+      "dialect": "postgres"
+    },
+    "production": {
+      "username": "postgres",
+      "password": "@Danilo09",
+      "database": "api-node-prod",
+      "host": "127.0.0.1",
+      "dialect": "postgres"
+    }
+  }
+  
