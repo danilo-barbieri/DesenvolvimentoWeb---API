@@ -1,50 +1,52 @@
 const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/config.json');
 
 class Endereco extends Model {};
 
 Endereco.init({
     id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
     cep: {
-        type: Sequelize.STRING,
-         allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: false,
     },
     logradouro: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     numero: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
-    complemento:{
-        type: Sequelize.STRING,
-         allowNull: false,
+    complemento: {
+        type: DataTypes.STRING,
+        allowNull: true, // Alterei para true pois complemento pode ser opcional
     },
     bairro: {
-        type: Sequelize.STRING,
-         allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: false,
     },
     cidade: {
-        type: Sequelize.STRING,
-         allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: false,
     },
     estado: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     municipioIBGE: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
-},{
-    sequelize,
-     modelName: 'Endereco',
-     tableName: 'enderecos',
-     timestamps: true,
+}, {
+    sequelize, // Instância do sequelize deve ser passada aqui
+    modelName: 'Endereco',
+    tableName: 'enderecos',
+    timestamps: true,
+    underscored: true, // Converte camelCase para snake_case
 });
 
 module.exports = Endereco;

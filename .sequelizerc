@@ -1,0 +1,19 @@
+const sequelize = require('sequelize');
+const config = require('./config/database');
+
+const Endereco = require('./model/endereco');
+
+const path = require("path");
+
+const connection = new Sequelize(config);
+
+Endereco.init(connection);
+Endereco.associate(connection.models);
+
+
+module.exports = connection;
+
+module.exports = {
+  config: path.resolve(__dirname, 'config', 'database.js'),
+  'migrations-path': path.resolve(__dirname, 'migrations')
+};
